@@ -18,6 +18,17 @@ $http.afterRequest = function(){
   uni.hideLoading() 
 }
 
+// 弹窗的方法   duration 持续时间
+
+uni.$showMsg = function(title = '数据请求失败', duration = 1500 ) {
+  uni.showToast({
+    title,
+    duration: 1500 ,
+    icon: 'none'
+    
+  })
+}
+
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({

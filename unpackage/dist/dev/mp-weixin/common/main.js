@@ -29,6 +29,17 @@ _requestMiniprogram.$http.afterRequest = function () {
   uni.hideLoading();
 };
 
+// 弹窗的方法   duration 持续时间
+
+uni.$showMsg = function () {var title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '数据请求失败';var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1500;
+  uni.showToast({
+    title: title,
+    duration: 1500,
+    icon: 'none' });
+
+
+};
+
 _vue.default.config.productionTip = false;
 _App.default.mpType = 'app';
 var app = new _vue.default(_objectSpread({},

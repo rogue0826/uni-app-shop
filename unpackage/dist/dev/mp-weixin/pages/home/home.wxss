@@ -46,4 +46,13 @@ image {
   width: 100%;
   display: flex;
 }
+.right-img-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.floor-img-box {
+  display: flex;
+  padding-left: 10rpx;
+}
 

@@ -21,8 +21,28 @@
       <view class="floor-item" v-for="(item, i) in floorList" :key= "i">
         <!-- 标题 -->
         <image :src="item.floor_title.image_src" mode="" class="floor-title"></image>
+        <!-- 楼层图片区域 --> 
+        <view class="floor-img-box">
+          <!-- 左侧大盒子 -->
+          <navigator class="left-img-box" :url="item.product_list[0].url">
+           <image :src="item.product_list[0].image_src" :style="{width: item.product_list[0].image_width + 'rpx'}" 
+           mode="widthFix"></image>
+         </navigator>
+          <!-- 右侧4个小图片 -->
+          <view class="right-img-box">
+            <navigator class="right-img-item" v-for="(item2, i2) in item.product_list" :key="i2" v-if="i2 !== 0" :url="item2.url">
+                  <image :src="item2.image_src" mode="widthFix" :style="{width: item2.image_width + 'rpx'}"></image>
+            </navigator>
+            
+          </view>
+          
+        </view>
       </view>
+      
     </view>
+    
+   
+ 
     
     
   </view>
@@ -68,8 +88,16 @@
        async getFloorList() {
       const { data: res } = await uni.$http.get('/api/public/v1/home/floordata')
       if (res.meta.status !== 200) return uni.$showMsg()
+      // 处理url地址
+      res.message.forEach(floor => {
+        floor.product_list.forEach(prod => {
+          prod.url =  '/subpkg/goods_list/goods_list?' + prod.navigator_url.split('?')[1]
+        })
+      })
       this.floorList = res.message
     },
+   
+    
     
     navClickHandler(item){
       if(item.name === '分类') {
@@ -113,6 +141,15 @@
     width: 100%;
     display: flex;
   }
-   
+   .right-img-box {
+     display: flex;
+     // 自动换行
+     flex-wrap: wrap;  
+     justify-content: space-around;
+   }
+   .floor-img-box {
+     display: flex;
+     padding-left: 10rpx;
+   }
 
 </style>

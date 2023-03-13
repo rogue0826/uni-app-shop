@@ -3,10 +3,12 @@
      <view class="scroll-view-container">
           <!-- 左侧的滚动视图区域 -->
           <scroll-view class="left-scroll-view" scroll-y :style="{height: wh + 'px'}">
-           <block v-for="(item, i) in cateList" :key="i">
-              <view :class="['left-scroll-view-item', i === active ? 'active' : ''] "> {{item.cat_name}} </view> 
-             </block>
-           
+            <view class="left-scroll-view-item active">xxx</view>
+            <view class="left-scroll-view-item">xxx</view>
+            <view class="left-scroll-view-item">xxx</view>
+            <view class="left-scroll-view-item">xxx</view>
+            <view class="left-scroll-view-item">xxx</view>
+            <view class="left-scroll-view-item">多复制一些节点，演示纵向滚动效果...</view>
           </scroll-view>
           <!-- 右侧的滚动视图区域 -->
           <scroll-view class="right-scroll-view" scroll-y :style="{height: wh + 'px'}">
@@ -25,39 +27,16 @@
     data() {
       return {
         // 窗口的可用高度 = 屏幕高度 - navigationBar高度 - tabBar 高度
-                wh: 0,
-                // 分类列表数据
-                cateList:[] ,
-                active:0
+                wh: 0
       };
     },
     onLoad() {
         // 获取当前系统的信息
             const sysInfo = uni.getSystemInfoSync()
-            // 为 wh 窗口可用高度动态赋值 
+            // 为 wh 窗口可用高度动态赋值
             this.wh = sysInfo.windowHeight
-            this.getCateList()
-    }
-    methods:{
-      async getCateList () {
-        // 发起请求 
-        const {data : res } =  await uni.$http.get('/api/public/v1/categories') 
-        // 判断是否失败
-        if( res.meta.status !== 200 ) return uni.$showMsg()
-        
-       // 数据转存
-       this.cateList = res.message
-       acticeChange(i) {
-         this.active = i 
-       }
-          
-      
-      }
-      
     }
   }
-
-  
 </script>
 
 <style lang="scss">
